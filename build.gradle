@@ -1,8 +1,10 @@
 group 'sk.tomsik68'
-version '1.0-SNAPSHOT'
+version '1.0'
 
 apply plugin: 'java'
+apply plugin: 'application'
 
+mainClassName = 'sk.tomsik68.templator.TemplatorApplication'
 sourceCompatibility = 1.8
 
 repositories {
@@ -12,4 +14,11 @@ repositories {
 dependencies {
     compile 'org.freemarker:freemarker:2.3.23'
     testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+jar {
+    manifest {
+        attributes "Main-Class": mainClassName
+    }
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
 }
